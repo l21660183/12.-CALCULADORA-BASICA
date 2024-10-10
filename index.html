@@ -1,0 +1,154 @@
+<!-- ANGIE XIMENA OLVERA ALVAREZ -->
+<!-- ACTIVIDAD 12 CALCULADORA BASICA -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Básica</title>
+    <style>
+        body {
+            background-color: #f1f1f1;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            background-color: rgb(0, 0, 0);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            background-color: rgb(0, 0, 0);
+            border-color: rgb(255, 255, 255);
+            width: 90%;
+            height: 50px;
+            font-size: 24px;
+            color: rgb(255, 255, 255);
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="button"] {
+            width: 60px;
+            height: 60px;
+            color: white;
+            background-color: rgb(131, 131, 131);
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: rgba(131, 131, 131, 0.5);
+        }
+
+        input[type="button"].operacion {
+            background-color: #f39c12;
+        }
+
+        input[type="button"].operacion:hover {
+            background-color: #e67e22;
+        }
+
+        input[type="button"].igual {
+            background-color: #f39c12;
+        }
+
+        input[type="button"].igual:hover {
+            background-color: #e67e22;
+        }
+
+        input[type="button"].clear {
+            background-color: #f39c12;
+        }
+
+        input[type="button"].clear:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Calculadora Básica</h1>
+        <form name="f1"><br>
+            <input type="text" name="txtcaja" placeholder="0" readonly><br>
+            <input type="button" onclick="escribir('7')" value="7">
+            <input type="button" onclick="escribir('8')" value="8">
+            <input type="button" onclick="escribir('9')" value="9">
+            <input type="button" onclick="escribir('+')" class="operacion" value="/"><br>
+            <input type="button" onclick="escribir('4')" value="4">
+            <input type="button" onclick="escribir('5')" value="5">
+            <input type="button" onclick="escribir('6')" value="6">
+            <input type="button" onclick="escribir('-')" class="operacion" value="*"><br>
+            <input type="button" onclick="escribir('1')" value="1">
+            <input type="button" onclick="escribir('2')" value="2">
+            <input type="button" onclick="escribir('3')" value="3">
+            <input type="button" onclick="escribir('*')" class="operacion" value="-"><br>
+            <input type="button" onclick="escribir('0')" value="0">
+            <input type="button" onclick="escribir('.')" value=".">
+            <input type="button" onclick="escribir('*')" class="operacion" value="=">
+            <input type="button" onclick="document.f1.reset()" class="clear" value="C">
+        </form>
+    </center>
+
+    <script>
+        let operacionActual = '';
+        let valorActual = '';
+
+        // Función para escribir números u operaciones
+        function escribir(n) {
+            const display = document.f1.txtcaja;
+
+            if (['+', '-', '*', '/'].includes(n)) {
+                // Si es una operación, guarda el valor anterior y la operación
+                operacionActual = n;
+                valorActual = display.value;
+                display.value = ''; // Limpia el display para el siguiente valor
+            } else {
+                // Escribir números en el display
+                display.value += n;
+            }
+        }
+
+        // Función para calcular el resultado
+        function calcular() {
+            const display = document.f1.txtcaja;
+            let resultado;
+
+            // Realiza la operación según el valor actual y la operación seleccionada
+            switch (operacionActual) {
+                case '+':
+                    resultado = parseFloat(valorActual) + parseFloat(display.value);
+                    break;
+                case '-':
+                    resultado = parseFloat(valorActual) - parseFloat(display.value);
+                    break;
+                case '*':
+                    resultado = parseFloat(valorActual) * parseFloat(display.value);
+                    break;
+                case '/':
+                    resultado = parseFloat(valorActual) / parseFloat(display.value);
+                    break;
+            }
+
+            display.value = resultado || '0'; // Muestra el resultado o '0' si no hay resultado
+            operacionActual = ''; // Resetea la operación actual
+        }
+    </script>
+</body>
+</html>
